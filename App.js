@@ -5,19 +5,22 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state = {
-      nome: ''
+      nome: '',
+      input: ''
     };
 
-    this.pegaNome = this.pegaNome.bind(this);
+    this.enviar = this.enviar.bind(this);
   }
 
-  pegaNome(texto){
-    if(texto.length > 0){// verifica o tamanho do texto digitado para que seja maior q 0
-      this.setState({nome: 'Bem vindo: ' + texto});// set state altera valor
-    }else{
-      this.setState({nome: ''})
+  enviar(){
+    if(this.state.input === ''){
+      alert('Digite seu  nome!');
+      return;
     }
+   
+    this.setState({nome: "Bem vindo:" + this.state.input});
   }
+
 
   render(){
     return(
@@ -26,9 +29,14 @@ class App extends Component{
         <TextInput // form de texto
         style={styles.input}//aplica estilo
         placeholder="Digite seu nome?"// define texto padrão 
-        onChangeText={this.pegaNome}//usa a função do input "onChangeText"(quando houver alteração no texto) para chamar a função "pegaNome"
+        onChangeText={(texto)=> this.setState({input:texto})}
         />
-        
+
+        <Button 
+          onPress={this.enviar}
+          title= "enviar"
+        />
+
         <Text style={styles.texto}>{this.state.nome}</Text> 
 
       </View>
