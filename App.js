@@ -3,7 +3,8 @@ import {
   View,
   Text,
   StyleSheet,
-  FlatList
+  FlatList,
+  Switch
   } from 'react-native';
 
   import {Picker} from '@react-native-picker/picker';
@@ -13,7 +14,7 @@ class App extends Component{
   constructor(props){
     super(props)
     this.state = { 
-      valor: 0
+      status: false
     };
   }
 
@@ -22,15 +23,14 @@ class App extends Component{
     return(
       <View style={styles.container}>
 
-        <Slider 
-          minimumValue={0}
-          maximumValue={100}
-          onValueChange={ (valorSelecionado)=> this.setState({valor: valorSelecionado}) }
-          value={this.state.valor}
-          />
+        <Switch 
+          value={this.state.status}
+          onValueChange={(valorSwitch)=> this.setState({status: valorSwitch})}
+        />
 
-        <Text style={styles.bar}>
-          {this.state.valor.toFixed(1)}
+        <Text>
+        {(this.state.status) ? "Ativo" : "Inativo"}
+
         </Text>
 
       </View>
@@ -42,7 +42,9 @@ const styles = StyleSheet.create({
   container:{
     flex:1,
     marginTop: 20,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    alignItems:'center'
+    
   },
   bar:{
     textAlign: 'center',
